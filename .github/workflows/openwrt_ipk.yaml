@@ -56,13 +56,19 @@ jobs:
         uses: actions/setup-node@v3
 
       # 安装 pnpm
-      - run: |
-          npm install pnpm -g
-
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+    
       # 打包 web 项目
-      - run: |
+      - name: Build web
+        env:
+          npm_config_ignore_scripts: false
+        run: |
           cd web
-          pnpm install --config.ignore-scripts=false
+          rm -f .npmrc
+          pnpm install --no-ignore-scripts
           pnpm run build
 
       # 复制 web至 luci
