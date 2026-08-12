@@ -65,8 +65,14 @@ jobs:
       - name: Build web
         run: |
           cd web
-          echo "ignore-scripts=false" > .npmrc
-          pnpm install
+          # 强行设置用户级 ignore-scripts 为 false
+          pnpm config set ignore-scripts false
+          # 确认配置已生效
+          pnpm config get ignore-scripts
+          # 删除项目级可能干扰的 .npmrc（备选）
+          rm -f .npmrc
+          # 安装并显式使用 --no-ignore-scripts
+          pnpm install --no-ignore-scripts
           pnpm run build
 
       # 复制 web至 luci
