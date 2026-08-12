@@ -7,11 +7,11 @@ on:
       version:
         description: "ipk version"
         required: true
-        default: "1.0.0"
+        default: "0.0.1"
       target:
         description: 'build target ["arm64", "x64", "mipsel"]'
         required: true
-        default: "arm64"
+        default: "x64"
 env:
   TZ: Asia/Shanghai
   IPK_NAME: luci-app-tailscaler
@@ -54,14 +54,16 @@ jobs:
       # https://github.com/marketplace/actions/setup-node-js-environment
       - name: Setup Nodejs
         uses: actions/setup-node@v3
-        with:
-          node-version: 18   # 推荐指定版本
 
-      - name: Build web with npm
-        run: |
+      # 安装 pnpm
+      - run: |
+          npm install pnpm -g
+
+      # 打包 web 项目
+      - run: |
           cd web
-          npm install
-          npm run build
+          pnpm install
+          pnpm run build
 
       # 复制 web至 luci
       - run: |
