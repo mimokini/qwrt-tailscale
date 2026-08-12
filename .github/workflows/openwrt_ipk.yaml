@@ -62,7 +62,8 @@ jobs:
       # 打包 web 项目
       - run: |
           cd web
-          pnpm install --allow-scripts=esbuild
+          pnpm config set --location project scripts-prepend-node-path auto
+          pnpm install
           pnpm run build
 
       # 复制 web至 luci
