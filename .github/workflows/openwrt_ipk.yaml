@@ -15,6 +15,7 @@ on:
 env:
   TZ: Asia/Shanghai
   IPK_NAME: luci-app-tailscaler
+  PNPM_IGNORE_SCRIPTS: false
 
 permissions:
   contents: write
@@ -62,7 +63,7 @@ jobs:
       # 打包 web 项目
       - run: |
           cd web
-          pnpm install --ignore-scripts=false
+          pnpm install
           pnpm run build
 
       # 复制 web至 luci
