@@ -54,22 +54,14 @@ jobs:
       # https://github.com/marketplace/actions/setup-node-js-environment
       - name: Setup Nodejs
         uses: actions/setup-node@v3
-
-      # 安装 pnpm
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
         with:
-          version: 8
-    
-      # 打包 web 项目
-      - name: Build web
+          node-version: 18   # 推荐指定版本
+
+      - name: Build web with npm
         run: |
           cd web
-          pnpm config set ignore-scripts false
-          pnpm config get ignore-scripts
-          rm -f .npmrc
-          pnpm install --no-ignore-scripts
-          pnpm run build
+          npm install
+          npm run build
 
       # 复制 web至 luci
       - run: |
