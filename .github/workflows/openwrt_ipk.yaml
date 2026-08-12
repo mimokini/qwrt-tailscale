@@ -7,15 +7,15 @@ on:
       version:
         description: "ipk version"
         required: true
-        default: "0.0.1"
+        default: "1.0.0"
       target:
         description: 'build target ["arm64", "x64", "mipsel"]'
         required: true
-        default: "x64"
+        default: "arm64"
 env:
   TZ: Asia/Shanghai
   IPK_NAME: luci-app-tailscaler
-  PNPM_IGNORE_SCRIPTS: false
+  npm_config_ignore_scripts: false
 
 permissions:
   contents: write
