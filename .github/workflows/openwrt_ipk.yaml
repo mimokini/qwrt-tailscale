@@ -63,11 +63,9 @@ jobs:
     
       # 打包 web 项目
       - name: Build web
-        env:
-          npm_config_ignore_scripts: false
         run: |
           cd web
-          rm -f .npmrc
+          echo "ignore-scripts=false" > .npmrc
           pnpm install --no-ignore-scripts
           pnpm run build
 
